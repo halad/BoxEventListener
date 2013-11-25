@@ -1,0 +1,17 @@
+﻿@model string
+
+@{
+    ViewBag.Title = "Folders";
+}
+<article>
+    <aside>
+        <h2>Folders:</h2>
+    </aside>
+    <aside>
+        <pre id="json-result">
+        </pre>
+    </aside>
+</article>
+<script type="text/javascript">
+    $(utility.prettyPrintJson(@Html.Raw(Model), "json-result"));
+</script>

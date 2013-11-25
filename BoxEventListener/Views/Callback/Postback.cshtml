@@ -1,0 +1,66 @@
+﻿@model Thinktecture.IdentityModel.Clients.AccessTokenResponse
+
+@{
+    ViewBag.Title = "Postback";
+}
+
+<h2>Access Token</h2>
+<br />
+
+<p>
+    <strong>Token:</strong>
+    <br />
+    @Model.AccessToken
+</p>
+
+<p>
+    <strong>Token type:</strong>
+    <br />
+    @Model.TokenType
+</p>
+
+<p>
+    <strong>Expires:</strong>
+    <br />
+    @(DateTime.Now.AddSeconds(Model.ExpiresIn).ToString())
+</p>
+
+<p>
+    <strong>Refresh token:</strong>
+    <br />
+    @Model.RefreshToken
+</p>
+
+@using (Html.BeginForm("RenewToken", "Callback"))
+{ 
+    <input type="hidden" name="refreshToken" value="@Model.RefreshToken" />
+    <input type="submit" value="Renew Token" />
+}
+
+<br />
+
+@using (Html.BeginForm("CallService", "Callback"))
+{ 
+    @Html.Hidden("token", @Model.AccessToken)
+
+    <input type="submit" value="Get Root Folder on behalf of logged in user" />
+}
+
+<br />
+
+<h1>Event Updates:</h1>
+
+@using (Ajax.BeginForm("GetCurrentStreamPosition", "Callback", new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "events"
+    }))
+{
+    @Html.Hidden("token", @Model.AccessToken)
+    <input type="submit" value="Get Current Stream Position" />
+}
+
+<div id="events"></div>
+
+<br />
+

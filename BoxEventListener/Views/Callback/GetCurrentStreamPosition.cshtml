@@ -1,0 +1,29 @@
+﻿@model BoxEventListenerMvc4.Controllers.CurrentStreamPositionResponse
+
+<h2>Current Stream Position Response</h2>
+<br />
+
+<p>
+    <strong>Chunk Size:</strong>
+    <br />
+    @Model.ChunkSize
+</p>
+
+<p>
+    <strong>Next Stream Position:</strong>
+    <br />
+    @Model.NextStreamPosition
+</p>
+
+<p>
+    <strong>Entries:</strong>
+    <br />
+    @Html.Raw(Model.Entries)
+</p>
+
+
+<p>
+    <strong>Next Stream Position Date Time:</strong>
+    <br />
+    @Model.NextStreamPositionDateTime
+</p>
